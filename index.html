@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nalangadi Supermarket — Flow Review</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+html,body{height:100%}body{display:flex;background:#F5F6F8;color:#101828;font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+#nav{width:290px;flex:none;background:#12355B;color:#C7D4E6;padding:18px 14px;overflow:auto;height:100vh;position:sticky;top:0}
+#nav h1{color:#fff;font-size:18px;display:flex;gap:10px;align-items:center;padding:0 8px 4px}#nav .tag{color:#9FB3CF;font-size:12px;padding:0 8px 16px}
+#nav .grp{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9FB3CF;padding:14px 10px 6px}
+#nav a{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:#C7D4E6;text-decoration:none;font-weight:500;cursor:pointer}#nav a:hover{background:#1B4A7C}#nav a.on{background:#1B4A7C;color:#fff;font-weight:600}
+#nav a .n{margin-left:auto;font-size:11px;background:#0E2A49;border-radius:999px;padding:1px 8px}
+#nav .prog{margin:14px 8px 0;font-size:12px;color:#9FB3CF}#nav .prog .bar{background:#0E2A49;height:8px;border-radius:4px;margin-top:6px}#nav .prog .bar i{display:block;height:8px;border-radius:4px;background:#1E9E6A}
+#main{flex:1;min-width:0;padding:28px 32px 60px}
+.vh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;flex-wrap:wrap}.vh h2{font-size:28px}.vh p{color:#475467;max-width:760px;margin-top:4px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}.filters .chip{cursor:pointer}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,560px);gap:28px}
+.cardx{width:560px}
+.thumb{width:560px;height:350px;border-radius:12px;overflow:hidden;border:1px solid #D0D5DD;background:#fff;cursor:zoom-in;position:relative;box-shadow:0 2px 8px rgba(16,24,40,.06)}
+.thumb .scr{transform:scale(.3889);transform-origin:0 0;pointer-events:none}
+.cap{display:flex;gap:8px;align-items:center;margin-top:10px}.cap b{font-size:14px}.cap .id{font-weight:700;color:#12355B}
+.st{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700}
+.st.first{background:#E6F0FD;color:#2F80ED}.st.filled{background:#E8EEF6;color:#12355B}.st.error{background:#FBE7E7;color:#D64545}.st.success{background:#E3F5EC;color:#1E9E6A}
+.note{color:#475467;font-size:13px;margin-top:4px}.rv{margin-left:auto;font-size:12px;font-weight:700}.rv.ok{color:#1E9E6A}.rv.chg{color:#E4572E}
+.flowcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.fc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:8px}.fc:hover{border-color:#12355B}
+.fc .tp{display:flex;justify-content:space-between;align-items:center}.fc .code{font-weight:800;color:#12355B}.fc p{color:#475467;font-size:13px}
+.fc .sts{display:flex;gap:6px;flex-wrap:wrap}
+table.mx{width:100%;background:#fff;border-collapse:collapse;border:1px solid #E4E7EC;border-radius:12px;overflow:hidden}table.mx th{background:#EEF0F4}table.mx td{vertical-align:top;font-size:13px}table.mx td a{color:#12355B;font-weight:600;cursor:pointer;margin-right:8px;text-decoration:underline}
+.doc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:22px;margin-bottom:16px}.doc h3{margin-bottom:10px}.doc p,.doc li{color:#475467;margin-bottom:6px}.doc ul{padding-left:20px}
+#ov{position:fixed;inset:0;background:#0A1220;display:none;flex-direction:column;z-index:50}#ov.show{display:flex}
+#ovh{display:flex;gap:14px;align-items:center;padding:14px 22px;color:#fff;flex-wrap:wrap}#ovh .id{font-weight:800}#ovh .nt{color:#C7D4E6;font-size:13px;flex:1;min-width:280px}
+#ovh button,#ovb button{background:#fff;color:#12355B;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:13px}
+#ovh button.g{background:#1E9E6A;color:#fff}#ovh button.o{background:#E4572E;color:#fff}#ovh button.x{background:#344054;color:#fff}
+#stage{flex:1;display:grid;place-items:center;overflow:auto;padding:0 22px 14px}#frame{transform-origin:0 0}#wrap{position:relative;border-radius:8px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.5)}
+#cm{display:none;padding:0 22px 14px}#cm.show{display:flex;gap:10px}#cm textarea{flex:1;border-radius:10px;border:0;padding:10px 12px;font:13px Inter,system-ui;height:56px}
+#ovb{display:flex;gap:10px;justify-content:center;padding:0 22px 14px;color:#9FB3CF;align-items:center;font-size:12px}
+.sum{display:flex;flex-direction:column;gap:10px}.sum .it{background:#fff;border:1px solid #E4E7EC;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
+</style></head><body>
+<div id="nav"></div><div id="main"></div>
+<div id="ov"><div id="ovh"></div><div id="cm"><textarea id="cmt" placeholder="What should change on this screen?"></textarea><button id="cms" class="o" style="background:#E4572E;color:#fff;border:0;border-radius:10px;padding:0 18px;font-weight:700">Save note</button></div><div id="stage"><div id="wrap"><div id="frame"></div></div></div><div id="ovb"><button id="pv">← Previous</button><span>Use ← → keys · Esc to close · A = approve · C = needs change</span><button id="nx">Next →</button></div></div>
+<script src="lib.js"></script><script src="screens-pos.js"></script><script src="screens-purchase.js"></script><script src="screens-stock.js"></script><script src="screens-scan.js"></script><script src="screens-reports.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const KEY='nalangadi-review-v1';let R={};try{R=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}};
+const fl=id=>FLOWS.find(f=>f.id===id);
+let view='overview',filter='all',cur=null;
+function nav(){const done=SCREENS.filter(s=>R[s.id]&&R[s.id].v==='ok').length;
+let h=`<h1><span class="logo" style="width:32px;height:32px">${ico('store',18,'#fff')}</span>Nalangadi</h1><div class="tag">Supermarket software · flow review</div>`;
+h+=`<a data-v="overview" class="${view==='overview'?'on':''}">Overview</a><a data-v="coverage" class="${view==='coverage'?'on':''}">Coverage matrix</a><a data-v="review" class="${view==='review'?'on':''}">Review summary</a><a data-v="gst" class="${view==='gst'?'on':''}">GST rules used</a><a data-v="research" class="${view==='research'?'on':''}">Research sources</a>`;
+['Counter','Back-office'].forEach(app=>{h+=`<div class="grp">${app} flows</div>`;FLOWS.filter(f=>f.app===app).forEach(f=>{const n=SCREENS.filter(s=>s.flow===f.id).length;h+=`<a data-v="flow:${f.id}" class="${view==='flow:'+f.id?'on':''}"><b>${f.id}</b> ${f.name}<span class="n">${n}</span></a>`;});});
+h+=`<div class="prog">Reviewed ${done} of ${SCREENS.length} screens<div class="bar"><i style="width:${SCREENS.length?done/SCREENS.length*100:0}%"></i></div></div>`;
+$('#nav').innerHTML=h;document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{view=a.dataset.v;filter='all';render();scrollTo(0,0)});}
+const stc=(f)=>['first','filled','error','success'].map(k=>{const n=SCREENS.filter(s=>s.flow===f&&s.state===k).length;return n?`<span class="st ${k}">${STATE_LABEL[k]} ${n}</span>`:''}).join('');
+function shotCard(s){const r=R[s.id];return `<div class="cardx"><div class="thumb" data-id="${s.id}">${s.html}</div><div class="cap"><span class="id">${s.id}</span><b>${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="rv ${r?r.v==='ok'?'ok':'chg':''}">${r?r.v==='ok'?'✓ approved':'✎ change requested':''}</span></div><div class="note">${s.note}</div></div>`;}
+function render(){nav();const m=$('#main');
+if(view==='overview'){m.innerHTML=`<div class="vh"><div><h2>Every flow, every state</h2><p>${SCREENS.length} desktop screens (1440×900) across ${FLOWS.length} flows. Each flow has first-time, filled, negative and success states. Open a flow, click any screen to enlarge it, then mark it approved or write what to change.</p></div></div><div class="flowcards">${FLOWS.map(f=>`<div class="fc" data-v="flow:${f.id}"><div class="tp"><span class="code">${f.id} · ${f.app}</span><span class="m3 sm">${SCREENS.filter(s=>s.flow===f.id).length} screens</span></div><b style="font-size:16px">${f.name}</b><p>${f.desc}</p><div class="sts">${stc(f.id)}</div></div>`).join('')}</div>`;m.querySelectorAll('.fc').forEach(c=>c.onclick=()=>{view=c.dataset.v;render();scrollTo(0,0)});}
+else if(view.startsWith('flow:')){const f=fl(view.slice(5));const list=SCREENS.filter(s=>s.flow===f.id&&(filter==='all'||s.state===filter));
+m.innerHTML=`<div class="vh"><div><h2>${f.id} · ${f.name}</h2><p>${f.desc}</p></div><div class="filters">${['all','first','filled','error','success'].map(k=>`<span class="chip ${filter===k?'on':''}" data-f="${k}">${k==='all'?'All states':STATE_LABEL[k]}</span>`).join('')}</div></div><div class="gal">${list.map(shotCard).join('')}</div>`;
+m.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{filter=c.dataset.f;render()});m.querySelectorAll('.thumb').forEach(t=>t.onclick=()=>open(t.dataset.id));}
+else if(view==='coverage'){const rows=FLOWS.map(f=>`<tr><td>${f.id} ${f.name}</td>${['first','filled','error','success'].map(k=>{const l=SCREENS.filter(s=>s.flow===f.id&&s.state===k);return `<td>${l.length?l.map(s=>`<a data-id="${s.id}">${s.id}</a>`).join(''):'<span class="m3">— not applicable</span>'}</td>`}).join('')}</tr>`).join('');
+m.innerHTML=`<div class="vh"><div><h2>Coverage matrix</h2><p>Built from the actual screens, so it is always accurate. Click an ID to open it.</p></div></div><table class="mx"><thead><tr><th>Flow</th><th>First-time</th><th>Filled</th><th>Negative</th><th>Success</th></tr></thead><tbody>${rows}</tbody></table>`;m.querySelectorAll('td a').forEach(a=>a.onclick=()=>open(a.dataset.id));}
+else if(view==='review'){const items=SCREENS.filter(s=>R[s.id]);const chg=items.filter(s=>R[s.id].v==='chg');const ok=items.filter(s=>R[s.id].v==='ok');
+m.innerHTML=`<div class="vh"><div><h2>Review summary</h2><p>${ok.length} approved · ${chg.length} need changes · ${SCREENS.length-items.length} not reviewed yet. Notes are saved in this browser.</p></div><div class="filters"><span class="chip on" id="cp">Copy change list</span><span class="chip" id="cl">Clear all</span></div></div><div class="sum">${chg.map(s=>`<div class="it"><b>${s.id}</b><div><b>${s.title}</b><div class="m">${R[s.id].c||'(no note)'}</div></div></div>`).join('')||'<div class="m">No change requests yet.</div>'}</div>`;
+$('#cp').onclick=()=>{const t=chg.map(s=>`${s.id} ${s.title}: ${R[s.id].c||''}`).join('\n');navigator.clipboard&&navigator.clipboard.writeText(t||'No changes');$('#cp').textContent='Copied';};$('#cl').onclick=()=>{R={};save();render();};}
+else if(view==='gst'){m.innerHTML=`<div class="vh"><div><h2>India GST rules used in the screens</h2><p>Summarised from tax guides found in research — not tax advice. A CA must confirm each rule, rate and date before go-live.</p></div></div>`+[
+['Return next month → credit note','A returned bill is never edited. The shop issues a credit note (Section 34 CGST) that references the original invoice. It is declared in the return of the month the credit note is issued, at the original bill’s tax rate. Example: Sept bill returned on 25 Oct → reduces October tax (filed in November).','Screens F2-2, F2-5, F2-6, F12-2'],
+['Retail reporting','Small retail (B2C) credit notes are netted in the rate-wise, state-wise summary of that month; large inter-state invoices above ₹2.5 lakh are reported separately. Verify current form table numbers.','F12-2'],
+['Time limit','Credit note must be declared by 30 November after the financial year of the original sale (or annual return date if earlier). Afterwards only a commercial credit note is possible and tax cannot be adjusted.','F2-2 warning, F12-3'],
+['Tax invoice vs bill of supply','Regular dealers print a tax invoice with mandatory particulars (Rule 46). Composition dealers (up to ₹1.5 crore, 1%) print a bill of supply and cannot show GST separately or claim input credit.','F1-7, F13'],
+['Rates','From 22 Sep 2025 sources report slabs of 5% and 18% (plus 40% for sin/luxury), loose staples nil, some packaged milk/paneer nil, carry bags 18%. Sample rates in the screens must be checked item-by-item in the notification.','F1-2, F13-2'],
+['Write-offs','Input credit on goods lost, stolen, destroyed or written off may need reversal (Section 17(5)(h)). Wastage entries flag “ask CA”.','F9, F5-5, F6'],
+['MRP and scales','Packaged goods cannot be sold above MRP; weighing scales must be verified and stamped (interval varies by state).','F1-2, F10-3'],
+['E-invoice','Applies from ₹5 crore turnover for B2B/exports; counter bills are not e-invoiced. Supplier IRN is stored on purchase invoices.','F5-6']].map(([t,b,w])=>`<div class="doc"><h3>${t}</h3><p>${b}</p><p><b>Where:</b> ${w}</p></div>`).join('');}
+else if(view==='research'){m.innerHTML=`<div class="vh"><div><h2>Research sources</h2><p>No single open-source project covers weighing, expiry, purchase orders, GST and wastage together. Workflows were taken from several; nothing was copied. Verify repos and licences before reuse.</p></div></div><div class="doc"><h3>Open source on GitHub</h3><ul><li><b>BeratARPA/BarcodePOS</b> — barcode, weighing scale and printer integration in a counter app.</li><li><b>Posnic/POS</b> — offline-first POS (Electron, AGPL).</li><li><b>ismail2021mohamed-cmd/supermarket-management-system</b> — roles, suppliers, expiry and low-stock alerts, profit dashboard.</li><li><b>Aasthayuli/Grocery_Inventory_Management</b> — barcode generation, expiry tracking, suppliers.</li><li><b>odoo/odoo, frappe/erpnext (+POSNext), Blair2004/NexoPOS, opensourcepos</b> — purchasing and receiving, cashier shifts, POS profiles, stock adjustments, roles.</li></ul></div><div class="doc"><h3>Vendor and guide material (marketing, unverified)</h3><ul><li>Price-embedded EAN-13 scale labels, PLU codes, tare.</li><li>Expiry-first (FEFO) stock, near-expiry markdown, blind counts and reason codes for shrink.</li><li>PO approvals by value, flagging price mismatch and over-receipt.</li></ul></div><div class="doc"><h3>UI patterns</h3><ul><li>Shopify Polaris and Emarsys data grids: checkbox column, hover actions, filters, bulk bar.</li></ul></div>`;}
+m.querySelectorAll('.thumb').forEach(t=>t.onclick=()=>open(t.dataset.id));}
+/* viewer */
+function fit(){const s=Math.min((innerWidth-60)/1440,(innerHeight-250)/900);$('#frame').style.transform=`scale(${s})`;$('#wrap').style.width=1440*s+'px';$('#wrap').style.height=900*s+'px';}
+function open(id){cur=SCREENS.findIndex(s=>s.id===id);show();$('#ov').classList.add('show');}
+function show(){const s=SCREENS[cur];const r=R[s.id]||{};$('#frame').innerHTML=s.html;fit();
+$('#ovh').innerHTML=`<span class="id">${s.id}</span><b>${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="nt">${s.note}</span><button class="g" id="ap">✓ Approve</button><button class="o" id="ch">✎ Needs change</button><button class="x" id="cx">Close</button>`;
+$('#cmt').value=r.c||'';$('#cm').classList.toggle('show',r.v==='chg');
+$('#ap').onclick=()=>mark('ok');$('#ch').onclick=()=>{R[s.id]={v:'chg',c:$('#cmt').value};save();$('#cm').classList.add('show');$('#cmt').focus();render2()};$('#cx').onclick=close;}
+function mark(v){const s=SCREENS[cur];R[s.id]={v,c:(R[s.id]&&R[s.id].c)||''};save();$('#cm').classList.toggle('show',v==='chg');render2();}
+function render2(){nav();if(view!=='review'){const keep=scrollY;render();scrollTo(0,keep);}}
+function close(){$('#ov').classList.remove('show');}
+$('#cms').onclick=()=>{const s=SCREENS[cur];R[s.id]={v:'chg',c:$('#cmt').value};save();render2();};
+$('#pv').onclick=()=>{cur=(cur-1+SCREENS.length)%SCREENS.length;show();};$('#nx').onclick=()=>{cur=(cur+1)%SCREENS.length;show();};
+addEventListener('resize',()=>{if($('#ov').classList.contains('show'))fit();});
+addEventListener('keydown',e=>{if(!$('#ov').classList.contains('show'))return;if(document.activeElement===$('#cmt')){if(e.key==='Escape')document.activeElement.blur();return;}if(e.key==='Escape')close();if(e.key==='ArrowRight')$('#nx').click();if(e.key==='ArrowLeft')$('#pv').click();if(e.key==='a'||e.key==='A')mark('ok');if(e.key==='c'||e.key==='C'){mark('chg');$('#cmt').focus();e.preventDefault();}});
+render();
+</script></body></html>
