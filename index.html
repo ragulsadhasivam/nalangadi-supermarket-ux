@@ -3,90 +3,202 @@
 <title>Nalangadi Supermarket — Flow Review</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-html,body{height:100%}body{display:flex;background:#F5F6F8;color:#101828;font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-#nav{width:290px;flex:none;background:#12355B;color:#C7D4E6;padding:18px 14px;overflow:auto;height:100vh;position:sticky;top:0}
-#nav h1{color:#fff;font-size:18px;display:flex;gap:10px;align-items:center;padding:0 8px 4px}#nav .tag{color:#9FB3CF;font-size:12px;padding:0 8px 16px}
-#nav .grp{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9FB3CF;padding:14px 10px 6px}
-#nav a{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:#C7D4E6;text-decoration:none;font-weight:500;cursor:pointer}#nav a:hover{background:#1B4A7C}#nav a.on{background:#1B4A7C;color:#fff;font-weight:600}
-#nav a .n{margin-left:auto;font-size:11px;background:#0E2A49;border-radius:999px;padding:1px 8px}
-#nav .prog{margin:14px 8px 0;font-size:12px;color:#9FB3CF}#nav .prog .bar{background:#0E2A49;height:8px;border-radius:4px;margin-top:6px}#nav .prog .bar i{display:block;height:8px;border-radius:4px;background:#1E9E6A}
+*{box-sizing:border-box}
+html,body{min-height:100%}body{display:flex;background:#F5F6F8;color:#101828;font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;overflow-x:hidden}
+:focus-visible{outline:3px solid #1A5FC4;outline-offset:2px;border-radius:6px}
+button{font:inherit;cursor:pointer}a{color:inherit}
+#nav{width:290px;flex:none;background:#12355B;color:#C7D4E6;padding:18px 14px;overflow:auto;height:100vh;position:sticky;top:0;z-index:30}
+#nav h1{color:#fff;font-size:18px;display:flex;gap:10px;align-items:center;padding:0 8px 4px;margin:0}#nav .tag{color:#C7D4E6;font-size:13px;padding:0 8px 16px}
+#nav .grp{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#C7D4E6;padding:14px 10px 6px}
+#nav a{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;color:#E3EAF4;text-decoration:none;font-weight:500}#nav a:hover{background:#1B4A7C}#nav a[aria-current=page]{background:#1B4A7C;color:#fff;font-weight:600}
+#nav a .n{margin-left:auto;font-size:13px;background:#0E2A49;border-radius:999px;padding:1px 8px;color:#E3EAF4}
+#nav :focus-visible{outline-color:#fff}
+#nav .prog{margin:14px 8px 0;font-size:13px;color:#E3EAF4}#nav .prog .bar{background:#0E2A49;height:8px;border-radius:4px;margin-top:6px;display:flex;overflow:hidden}#nav .prog .bar i{display:block;height:8px}
+#nav .tg2{margin:14px 8px 0;display:flex;gap:8px;align-items:center;color:#E3EAF4;font-size:13px}
+#bar{display:none;position:sticky;top:0;z-index:20;background:#12355B;color:#fff;align-items:center;gap:12px;padding:10px 16px}
+#bar button{background:#1B4A7C;color:#fff;border:0;border-radius:10px;padding:8px 14px;font-weight:600}
+#shade{display:none;position:fixed;inset:0;background:rgba(10,18,32,.55);z-index:25}
+#wrapmain{flex:1;min-width:0;display:flex;flex-direction:column}
 #main{flex:1;min-width:0;padding:28px 32px 60px}
-.vh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;flex-wrap:wrap}.vh h2{font-size:28px}.vh p{color:#475467;max-width:760px;margin-top:4px}
-.filters{display:flex;gap:8px;flex-wrap:wrap}.filters .chip{cursor:pointer}
-.gal{display:grid;grid-template-columns:repeat(auto-fill,560px);gap:28px}
-.cardx{width:560px}
-.thumb{width:560px;height:350px;border-radius:12px;overflow:hidden;border:1px solid #D0D5DD;background:#fff;cursor:zoom-in;position:relative;box-shadow:0 2px 8px rgba(16,24,40,.06)}
-.thumb .scr{transform:scale(.3889);transform-origin:0 0;pointer-events:none}
-.cap{display:flex;gap:8px;align-items:center;margin-top:10px}.cap b{font-size:14px}.cap .id{font-weight:700;color:#12355B}
-.st{display:inline-block;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700}
-.st.first{background:#E6F0FD;color:#2F80ED}.st.filled{background:#E8EEF6;color:#12355B}.st.error{background:#FBE7E7;color:#D64545}.st.success{background:#E3F5EC;color:#1E9E6A}
-.note{color:#475467;font-size:13px;margin-top:4px}.rv{margin-left:auto;font-size:12px;font-weight:700}.rv.ok{color:#1E9E6A}.rv.chg{color:#E4572E}
-.flowcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
-.fc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:8px}.fc:hover{border-color:#12355B}
-.fc .tp{display:flex;justify-content:space-between;align-items:center}.fc .code{font-weight:800;color:#12355B}.fc p{color:#475467;font-size:13px}
-.fc .sts{display:flex;gap:6px;flex-wrap:wrap}
-table.mx{width:100%;background:#fff;border-collapse:collapse;border:1px solid #E4E7EC;border-radius:12px;overflow:hidden}table.mx th{background:#EEF0F4}table.mx td{vertical-align:top;font-size:13px}table.mx td a{color:#12355B;font-weight:600;cursor:pointer;margin-right:8px;text-decoration:underline}
-.doc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:22px;margin-bottom:16px}.doc h3{margin-bottom:10px}.doc p,.doc li{color:#475467;margin-bottom:6px}.doc ul{padding-left:20px}
+.vh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:18px;flex-wrap:wrap}.vh h2{font-size:28px;margin:0}.vh p{color:#475467;max-width:760px;margin:4px 0 0}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:24px}
+.cardx{min-width:0}
+.thumb{display:block;position:relative;aspect-ratio:1440/900;overflow:hidden;border-radius:12px;border:1px solid #D0D5DD;background:#fff;box-shadow:0 2px 8px rgba(16,24,40,.06)}
+.thumb .fr{position:absolute;left:0;top:0;width:1440px;height:900px;transform:scale(var(--s,.25));transform-origin:0 0}
+.cap{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}.cap b{font-size:14px}.cap .id{font-weight:700;color:#12355B;white-space:nowrap}
+.st{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700;white-space:nowrap}
+.st.first{background:#E6F0FD;color:#1A5FC4}.st.filled{background:#E8EEF6;color:#12355B}.st.error{background:#FBE7E7;color:#B42323}.st.success{background:#E3F5EC;color:#137A50}
+.note{color:#475467;font-size:13px;margin-top:4px}.rv{margin-left:auto;font-size:13px;font-weight:700}.rv.ok{color:#137A50}.rv.chg{color:#B8401C}
+.flowcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.fc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:inherit}.fc:hover{border-color:#12355B}
+.fc .tp{display:flex;justify-content:space-between;align-items:center}.fc .code{font-weight:800;color:#12355B}.fc p{color:#475467;font-size:13px;margin:0}
+.fc .sts{display:flex;gap:6px;flex-wrap:wrap}.fc .pb{background:#E4E7EC;height:6px;border-radius:3px;display:flex;overflow:hidden}.fc .pb i{display:block;height:6px}
+.fc .pt{font-size:13px;color:#475467}
+.mxw{overflow-x:auto}
+table.mx{width:100%;background:#fff;border-collapse:collapse;border:1px solid #E4E7EC;min-width:640px}table.mx th{background:#EEF0F4;text-align:left;padding:10px 12px;font-size:13px}table.mx td{vertical-align:top;font-size:13px;padding:10px 12px;border-top:1px solid #E4E7EC}table.mx td a{color:#12355B;font-weight:600;margin-right:8px;text-decoration:underline;white-space:nowrap}
+.doc{background:#fff;border:1px solid #E4E7EC;border-radius:16px;padding:22px;margin-bottom:16px}.doc h3{margin:0 0 10px}.doc p,.doc li{color:#475467;margin:0 0 6px}.doc ul{padding-left:20px;margin:0}
+.banner2{background:#FEF3C7;border:1px solid #F5D987;color:#5B3B00;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:13px}
+.sum{display:flex;flex-direction:column;gap:10px}.sum .it{background:#fff;border:1px solid #E4E7EC;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.tb{display:flex;gap:8px;flex-wrap:wrap}.tb button,.tb label.bt{background:#fff;border:1px solid #98A2B3;border-radius:10px;padding:8px 14px;font-weight:600;color:#12355B;display:inline-flex;align-items:center}
+.tb .danger{color:#B42323;border-color:#B42323}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101828;color:#fff;border-radius:12px;padding:10px 16px;display:none;gap:14px;align-items:center;z-index:80;max-width:92vw}
+#toast.show{display:flex}#toast button{background:#fff;color:#12355B;border:0;border-radius:8px;padding:6px 12px;font-weight:700}
 #ov{position:fixed;inset:0;background:#0A1220;display:none;flex-direction:column;z-index:50}#ov.show{display:flex}
-#ovh{display:flex;gap:14px;align-items:center;padding:14px 22px;color:#fff;flex-wrap:wrap}#ovh .id{font-weight:800}#ovh .nt{color:#C7D4E6;font-size:13px;flex:1;min-width:280px}
-#ovh button,#ovb button{background:#fff;color:#12355B;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer;font-size:13px}
-#ovh button.g{background:#1E9E6A;color:#fff}#ovh button.o{background:#E4572E;color:#fff}#ovh button.x{background:#344054;color:#fff}
-#stage{flex:1;display:grid;place-items:center;overflow:auto;padding:0 22px 14px}#frame{transform-origin:0 0}#wrap{position:relative;border-radius:8px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.5)}
-#cm{display:none;padding:0 22px 14px}#cm.show{display:flex;gap:10px}#cm textarea{flex:1;border-radius:10px;border:0;padding:10px 12px;font:13px Inter,system-ui;height:56px}
-#ovb{display:flex;gap:10px;justify-content:center;padding:0 22px 14px;color:#9FB3CF;align-items:center;font-size:12px}
-.sum{display:flex;flex-direction:column;gap:10px}.sum .it{background:#fff;border:1px solid #E4E7EC;border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
+#ovh{display:flex;gap:10px;align-items:center;padding:12px 18px;color:#fff;flex-wrap:wrap}#ovh .id{font-weight:800}#ovh .pos{color:#E3EAF4;font-size:13px}
+#ovh .nt{color:#E3EAF4;font-size:13px;flex:1 1 100%}
+#ov button{background:#fff;color:#12355B;border:0;border-radius:10px;padding:8px 14px;font-weight:700;font-size:13px}
+#ov button[disabled]{background:#475467;color:#E3EAF4;cursor:default}
+#ov button.g{background:#1E7A53;color:#fff}#ov button.o{background:#B8401C;color:#fff}#ov button[aria-pressed=true]{outline:3px solid #fff}#ov button.x{background:#344054;color:#fff}
+#ov :focus-visible{outline-color:#fff}
+#ovo{display:flex;gap:12px;align-items:center;padding:0 18px 8px;color:#E3EAF4;font-size:13px;flex-wrap:wrap}
+#ovo textarea{flex:1;min-width:200px;border-radius:10px;border:0;padding:8px 12px;font:13px Inter,system-ui;height:44px;resize:vertical}
+#stage{flex:1;min-height:0;display:grid;place-items:center;overflow:auto;padding:0 18px 14px}#wrap{position:relative;border-radius:8px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.5)}#frame{transform-origin:0 0;width:1440px;height:900px}
+body.lock{overflow:hidden}
+@media (max-width:1023px){
+ body{flex-direction:column}#bar{display:flex}
+ #nav{position:fixed;left:0;top:0;bottom:0;transform:translateX(-105%);transition:transform .2s;width:min(290px,86vw)}
+ body.navopen #nav{transform:none}body.navopen #shade{display:block}
+ #main{padding:20px 16px 48px}.vh h2{font-size:22px}
+}
 </style></head><body>
-<div id="nav"></div><div id="main"></div>
-<div id="ov"><div id="ovh"></div><div id="cm"><textarea id="cmt" placeholder="What should change on this screen?"></textarea><button id="cms" class="o" style="background:#E4572E;color:#fff;border:0;border-radius:10px;padding:0 18px;font-weight:700">Save note</button></div><div id="stage"><div id="wrap"><div id="frame"></div></div></div><div id="ovb"><button id="pv">← Previous</button><span>Use ← → keys · Esc to close · A = approve · C = needs change</span><button id="nx">Next →</button></div></div>
-<script src="lib.js"></script><script src="screens-pos.js"></script><script src="screens-purchase.js"></script><script src="screens-stock.js"></script><script src="screens-scan.js"></script><script src="screens-reports.js"></script>
+<nav id="nav" aria-label="Flows"></nav><div id="shade"></div>
+<div id="wrapmain"><div id="bar"><button id="burger" aria-label="Open menu" aria-expanded="false">☰ Menu</button><b>Nalangadi · flow review</b></div><main id="main" tabindex="-1"></main></div>
+<div id="ov" role="dialog" aria-modal="true" aria-labelledby="ovt" hidden>
+ <div id="ovh"></div>
+ <div id="ovo"><label for="cmt" style="font-weight:600">Note</label><textarea id="cmt" placeholder="What should change on this screen? Saved as you type."></textarea><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="adv"> Go to next after approving</label><span id="sv" aria-live="polite"></span></div>
+ <div id="stage"><div id="wrap"><div id="frame" inert></div></div></div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="lib.js"></script><script src="screens-pos.js"></script><script src="screens-purchase.js"></script><script src="screens-stock.js"></script><script src="screens-scan.js"></script><script src="screens-reports.js"></script><script src="screens-counter-extra.js"></script><script src="screens-backoffice-extra.js"></script>
 <script>
 const $=s=>document.querySelector(s);
-const KEY='nalangadi-review-v1';let R={};try{R=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+const KEY='nalangadi-review-v1',PKEY='nalangadi-review-prefs';
+let R={},P={adv:true,internal:false};
+try{R=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){R={}}
+try{P={...P,...JSON.parse(localStorage.getItem(PKEY)||'{}')}}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(R))}catch(e){}};
+const saveP=()=>{try{localStorage.setItem(PKEY,JSON.stringify(P))}catch(e){}};
+const h=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const byId=id=>SCREENS.find(s=>s.id===id);
 const fl=id=>FLOWS.find(f=>f.id===id);
-let view='overview',filter='all',cur=null;
-function nav(){const done=SCREENS.filter(s=>R[s.id]&&R[s.id].v==='ok').length;
-let h=`<h1><span class="logo" style="width:32px;height:32px">${ico('store',18,'#fff')}</span>Nalangadi</h1><div class="tag">Supermarket software · flow review</div>`;
-h+=`<a data-v="overview" class="${view==='overview'?'on':''}">Overview</a><a data-v="coverage" class="${view==='coverage'?'on':''}">Coverage matrix</a><a data-v="review" class="${view==='review'?'on':''}">Review summary</a><a data-v="gst" class="${view==='gst'?'on':''}">GST rules used</a><a data-v="research" class="${view==='research'?'on':''}">Research sources</a>`;
-['Counter','Back-office'].forEach(app=>{h+=`<div class="grp">${app} flows</div>`;FLOWS.filter(f=>f.app===app).forEach(f=>{const n=SCREENS.filter(s=>s.flow===f.id).length;h+=`<a data-v="flow:${f.id}" class="${view==='flow:'+f.id?'on':''}"><b>${f.id}</b> ${f.name}<span class="n">${n}</span></a>`;});});
-h+=`<div class="prog">Reviewed ${done} of ${SCREENS.length} screens<div class="bar"><i style="width:${SCREENS.length?done/SCREENS.length*100:0}%"></i></div></div>`;
-$('#nav').innerHTML=h;document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{view=a.dataset.v;filter='all';render();scrollTo(0,0)});}
-const stc=(f)=>['first','filled','error','success'].map(k=>{const n=SCREENS.filter(s=>s.flow===f&&s.state===k).length;return n?`<span class="st ${k}">${STATE_LABEL[k]} ${n}</span>`:''}).join('');
-function shotCard(s){const r=R[s.id];return `<div class="cardx"><div class="thumb" data-id="${s.id}">${s.html}</div><div class="cap"><span class="id">${s.id}</span><b>${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="rv ${r?r.v==='ok'?'ok':'chg':''}">${r?r.v==='ok'?'✓ approved':'✎ change requested':''}</span></div><div class="note">${s.note}</div></div>`;}
-function render(){nav();const m=$('#main');
-if(view==='overview'){m.innerHTML=`<div class="vh"><div><h2>Every flow, every state</h2><p>${SCREENS.length} desktop screens (1440×900) across ${FLOWS.length} flows. Each flow has first-time, filled, negative and success states. Open a flow, click any screen to enlarge it, then mark it approved or write what to change.</p></div></div><div class="flowcards">${FLOWS.map(f=>`<div class="fc" data-v="flow:${f.id}"><div class="tp"><span class="code">${f.id} · ${f.app}</span><span class="m3 sm">${SCREENS.filter(s=>s.flow===f.id).length} screens</span></div><b style="font-size:16px">${f.name}</b><p>${f.desc}</p><div class="sts">${stc(f.id)}</div></div>`).join('')}</div>`;m.querySelectorAll('.fc').forEach(c=>c.onclick=()=>{view=c.dataset.v;render();scrollTo(0,0)});}
-else if(view.startsWith('flow:')){const f=fl(view.slice(5));const list=SCREENS.filter(s=>s.flow===f.id&&(filter==='all'||s.state===filter));
-m.innerHTML=`<div class="vh"><div><h2>${f.id} · ${f.name}</h2><p>${f.desc}</p></div><div class="filters">${['all','first','filled','error','success'].map(k=>`<span class="chip ${filter===k?'on':''}" data-f="${k}">${k==='all'?'All states':STATE_LABEL[k]}</span>`).join('')}</div></div><div class="gal">${list.map(shotCard).join('')}</div>`;
-m.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{filter=c.dataset.f;render()});m.querySelectorAll('.thumb').forEach(t=>t.onclick=()=>open(t.dataset.id));}
-else if(view==='coverage'){const rows=FLOWS.map(f=>`<tr><td>${f.id} ${f.name}</td>${['first','filled','error','success'].map(k=>{const l=SCREENS.filter(s=>s.flow===f.id&&s.state===k);return `<td>${l.length?l.map(s=>`<a data-id="${s.id}">${s.id}</a>`).join(''):'<span class="m3">— not applicable</span>'}</td>`}).join('')}</tr>`).join('');
-m.innerHTML=`<div class="vh"><div><h2>Coverage matrix</h2><p>Built from the actual screens, so it is always accurate. Click an ID to open it.</p></div></div><table class="mx"><thead><tr><th>Flow</th><th>First-time</th><th>Filled</th><th>Negative</th><th>Success</th></tr></thead><tbody>${rows}</tbody></table>`;m.querySelectorAll('td a').forEach(a=>a.onclick=()=>open(a.dataset.id));}
-else if(view==='review'){const items=SCREENS.filter(s=>R[s.id]);const chg=items.filter(s=>R[s.id].v==='chg');const ok=items.filter(s=>R[s.id].v==='ok');
-m.innerHTML=`<div class="vh"><div><h2>Review summary</h2><p>${ok.length} approved · ${chg.length} need changes · ${SCREENS.length-items.length} not reviewed yet. Notes are saved in this browser.</p></div><div class="filters"><span class="chip on" id="cp">Copy change list</span><span class="chip" id="cl">Clear all</span></div></div><div class="sum">${chg.map(s=>`<div class="it"><b>${s.id}</b><div><b>${s.title}</b><div class="m">${R[s.id].c||'(no note)'}</div></div></div>`).join('')||'<div class="m">No change requests yet.</div>'}</div>`;
-$('#cp').onclick=()=>{const t=chg.map(s=>`${s.id} ${s.title}: ${R[s.id].c||''}`).join('\n');navigator.clipboard&&navigator.clipboard.writeText(t||'No changes');$('#cp').textContent='Copied';};$('#cl').onclick=()=>{R={};save();render();};}
-else if(view==='gst'){m.innerHTML=`<div class="vh"><div><h2>India GST rules used in the screens</h2><p>Summarised from tax guides found in research — not tax advice. A CA must confirm each rule, rate and date before go-live.</p></div></div>`+[
-['Return next month → credit note','A returned bill is never edited. The shop issues a credit note (Section 34 CGST) that references the original invoice. It is declared in the return of the month the credit note is issued, at the original bill’s tax rate. Example: Sept bill returned on 25 Oct → reduces October tax (filed in November).','Screens F2-2, F2-5, F2-6, F12-2'],
-['Retail reporting','Small retail (B2C) credit notes are netted in the rate-wise, state-wise summary of that month; large inter-state invoices above ₹2.5 lakh are reported separately. Verify current form table numbers.','F12-2'],
-['Time limit','Credit note must be declared by 30 November after the financial year of the original sale (or annual return date if earlier). Afterwards only a commercial credit note is possible and tax cannot be adjusted.','F2-2 warning, F12-3'],
-['Tax invoice vs bill of supply','Regular dealers print a tax invoice with mandatory particulars (Rule 46). Composition dealers (up to ₹1.5 crore, 1%) print a bill of supply and cannot show GST separately or claim input credit.','F1-7, F13'],
+const STATES=['first','filled','error','success'];
+STATE_LABEL.error='Error';
+const NAVGROUPS=[['Counter flows','Counter'],['Back-office flows','Back-office']];
+/* ---------- progress ---------- */
+const stats=list=>{let ok=0,chg=0;list.forEach(s=>{const r=R[s.id];if(r&&r.v==='ok')ok++;else if(r&&r.v==='chg')chg++;});return {ok,chg,rev:ok+chg,n:list.length};};
+const bar=(st,cls='bar')=>`<div class="${cls}" role="img" aria-label="${st.ok} approved, ${st.chg} need changes, ${st.n-st.rev} not reviewed"><i style="width:${st.n?st.ok/st.n*100:0}%;background:#1E9E6A"></i><i style="width:${st.n?st.chg/st.n*100:0}%;background:#E4572E"></i></div>`;
+/* ---------- routing ---------- */
+const parse=()=>{const raw=location.hash.replace(/^#\/?/,'');const [path,qs]=raw.split('?');const p=path.split('/').filter(Boolean);const q=new URLSearchParams(qs||'');let state=q.get('state')||'all';if(state!=='all'&&!STATES.includes(state))state='all';return {v:p[0]||'overview',arg:p[1]||'',state};};
+const flowHash=(f,st)=>`#/flow/${f}${st&&st!=='all'?'?state='+st:''}`;
+const scrHash=(id,st)=>`#/screen/${id}${st&&st!=='all'?'?state='+st:''}`;
+let drawn='',pushed=false,cur=null,ctx=[],ctxState='all',lastFocus=null,lazy=null,rsz=null;
+function route(){flushNote();const r=parse();let bg=r.v,flow=null,scr=null;
+ if(r.v==='screen'){scr=byId(r.arg);if(!scr){location.replace('#/');return;}bg='flow';flow=scr.flow;}
+ else if(r.v==='flow'){flow=fl(r.arg)?r.arg:null;if(!flow){location.replace('#/');return;}}
+ else if(!['overview','coverage','review','gst','research'].includes(r.v)){location.replace('#/');return;}
+ const key=[bg,flow,r.state].join('|');
+ if(key!==drawn){drawn=key;renderMain(bg,flow,r.state);nav(bg,flow);}
+ if(scr){ctxState=r.state;ctx=SCREENS.filter(s=>s.flow===scr.flow&&(r.state==='all'||s.state===r.state));if(!ctx.includes(scr)){ctx=SCREENS.filter(s=>s.flow===scr.flow);ctxState='all';}cur=scr;showViewer();}
+ else closeViewer();}
+addEventListener('hashchange',route);
+addEventListener('pagehide',flushNote);
+/* ---------- nav ---------- */
+function nav(v,flow){const c=a=>a?' aria-current="page"':'';
+ let x=`<h1><span class="logo" style="width:32px;height:32px">${ico('store',18,'#fff')}</span>Nalangadi</h1><div class="tag">Supermarket software · flow review</div>`;
+ x+=`<a href="#/"${c(v==='overview')}>Overview</a><a href="#/coverage"${c(v==='coverage')}>Coverage matrix</a><a href="#/review"${c(v==='review')}>Review summary</a>`;
+ if(P.internal)x+=`<a href="#/gst"${c(v==='gst')}>GST rules used</a><a href="#/research"${c(v==='research')}>Research sources</a>`;
+ NAVGROUPS.forEach(([t,app])=>{x+=`<div class="grp">${t}</div>`;FLOWS.filter(f=>f.app===app).forEach(f=>{x+=`<a href="${flowHash(f.id)}"${c(v==='flow'&&flow===f.id)}><b>${f.id}</b> ${f.name}<span class="n">${SCREENS.filter(s=>s.flow===f.id).length}</span></a>`;});});
+ x+=`<div class="prog" id="prog"></div><label class="tg2"><input type="checkbox" id="intl" ${P.internal?'checked':''}> Show internal pages</label>`;
+ $('#nav').innerHTML=x;paintProgress();
+ $('#intl').onchange=e=>{P.internal=e.target.checked;saveP();nav(v,flow);};}
+function paintProgress(){const st=stats(SCREENS);const el=$('#prog');if(el)el.innerHTML=`Reviewed ${st.rev} of ${st.n} screens<br>${st.ok} approved · ${st.chg} need changes${bar(st)}`;
+ document.querySelectorAll('[data-fp]').forEach(e=>{const s=stats(SCREENS.filter(x=>x.flow===e.dataset.fp));e.innerHTML=bar(s,'pb')+`<div class="pt">${s.ok} approved · ${s.chg} need changes · ${s.n-s.rev} to review</div>`;});}
+/* ---------- views ---------- */
+const stc=f=>STATES.map(k=>{const n=SCREENS.filter(s=>s.flow===f&&s.state===k).length;return n?`<span class="st ${k}">${STATE_LABEL[k]} ${n}</span>`:''}).join('');
+function shotCard(s,st){const r=R[s.id];const t=r&&r.v==='ok'?'✓ approved':r&&r.v==='chg'?'✎ change requested':'';return `<div class="cardx" data-card="${s.id}"><a class="thumb" href="${scrHash(s.id,st)}" data-id="${s.id}" aria-label="Open ${s.id} ${h(s.title)}"><div class="fr" inert></div></a><div class="cap"><span class="id">${s.id}</span><b>${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="rv ${r?r.v:''}">${t}</span></div><div class="note">${s.note}</div></div>`;}
+function renderMain(v,flow,state){const m=$('#main');lazy&&lazy.disconnect();rsz&&rsz.disconnect();
+ if(v==='overview'){m.innerHTML=`<div class="vh"><div><h2>Every flow, every state</h2><p>${SCREENS.length} desktop screens (1440×900) across ${FLOWS.length} flows. Each flow shows First-time, Filled, Error and Success states, or says on the coverage matrix why one does not apply. Open a flow, select a screen to enlarge it, then approve it or write what to change.</p></div></div><div class="flowcards">${FLOWS.map(f=>`<a class="fc" href="${flowHash(f.id)}"><div class="tp"><span class="code">${f.id} · ${f.app}</span><span class="pt">${SCREENS.filter(s=>s.flow===f.id).length} screens</span></div><b style="font-size:16px">${f.name}</b><p>${f.desc}</p><div class="sts">${stc(f.id)}</div><div data-fp="${f.id}"></div></a>`).join('')}</div>`;paintProgress();}
+ else if(v==='flow'){const f=fl(flow);const list=SCREENS.filter(s=>s.flow===f.id&&(state==='all'||s.state===state));const na=Object.entries(f.na||{});
+  m.innerHTML=`<div class="vh"><div><h2>${f.id} · ${f.name}</h2><p>${f.desc}</p></div><div class="filters" role="group" aria-label="Filter by state">${['all',...STATES].map(k=>`<a class="chip ${state===k?'on':''}" href="${flowHash(f.id,k)}" ${state===k?'aria-current="true"':''} style="text-decoration:none">${k==='all'?'All states':STATE_LABEL[k]}</a>`).join('')}</div></div>${na.length?`<div class="banner2">Not applicable here: ${na.map(([k,t])=>`<b>${STATE_LABEL[k]}</b> — ${h(t)}`).join(' · ')}</div>`:''}<div class="gal">${list.map(s=>shotCard(s,state)).join('')||'<p>No screens in this state.</p>'}</div>`;mountThumbs();}
+ else if(v==='coverage'){const rows=FLOWS.map(f=>`<tr><td>${f.id} ${f.name}</td>${STATES.map(k=>{const l=SCREENS.filter(s=>s.flow===f.id&&s.state===k);return `<td>${l.length?l.map(s=>`<a href="${scrHash(s.id)}">${s.id}</a>`).join(''):(f.na&&f.na[k]?`<span style="color:#475467">Not applicable: ${h(f.na[k])}</span>`:'<b style="color:#B42323">Missing</b>')}</td>`}).join('')}</tr>`).join('');
+  m.innerHTML=`<div class="vh"><div><h2>Coverage matrix</h2><p>Built from the actual screens, so it is always accurate. A state that does not apply says why.</p></div></div><div class="mxw"><table class="mx"><thead><tr><th scope="col">Flow</th>${STATES.map(k=>`<th scope="col">${STATE_LABEL[k]}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;}
+ else if(v==='review'){renderReview();}
+ else if(v==='gst'){m.innerHTML=GSTPAGE();}
+ else if(v==='research'){m.innerHTML=RESEARCH();}
+ scrollTo(0,0);}
+const changeList=()=>SCREENS.filter(s=>R[s.id]&&R[s.id].v==='chg').map(s=>`${s.id} ${s.title}: ${R[s.id].c||''}`).join('\n');
+function renderReview(){const st=stats(SCREENS);const chg=SCREENS.filter(s=>R[s.id]&&R[s.id].v==='chg');
+ $('#main').innerHTML=`<div class="vh"><div><h2>Review summary</h2><p>${st.ok} approved · ${st.chg} need changes · ${st.n-st.rev} not reviewed yet.</p></div><div class="tb"><button id="cp">Copy change list</button><button id="dl">Download .txt</button><button id="ex">Export JSON</button><label class="bt" for="im" style="cursor:pointer">Import JSON</label><input type="file" id="im" accept="application/json" style="position:absolute;left:-9999px"><button id="cl" class="danger">Clear all</button></div></div><div class="banner2">Your reviews are saved only in this browser. Export them to back up or to share with someone else.</div><div class="sum">${chg.map(s=>`<div class="it"><b>${s.id}</b><div><b>${s.title}</b><div style="color:#475467">${h(R[s.id].c)||'(no note)'}</div></div><a href="${scrHash(s.id)}" style="margin-left:auto">Open</a></div>`).join('')||'<div style="color:#475467">No change requests yet.</div>'}</div>`;
+ $('#cp').onclick=async()=>{try{await navigator.clipboard.writeText(changeList()||'No changes');toast('Change list copied');}catch(e){toast('The browser blocked copying — use Download .txt instead');}};
+ $('#dl').onclick=()=>download('nalangadi-changes.txt',changeList()||'No changes','text/plain');
+ $('#ex').onclick=()=>download('nalangadi-reviews.json',JSON.stringify(R,null,1),'application/json');
+ $('#im').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(!o||typeof o!=='object'||Array.isArray(o))throw 0;let n=0;Object.entries(o).forEach(([k,v])=>{if(byId(k)&&v&&['ok','chg',''].includes(v.v)){R[k]={v:v.v,c:String(v.c||'')};n++;}});save();toast(n+' reviews imported');repaintAll();}catch(x){toast('That file is not a review export');}};rd.readAsText(f);};
+ $('#cl').onclick=()=>{const n=Object.keys(R).length;if(!n){toast('Nothing to clear');return;}const b=$('#cl');b.textContent='Click again to clear '+n+' reviews';b.onclick=()=>{const bak=JSON.stringify(R);R={};save();repaintAll();toast('All reviews cleared',()=>{R=JSON.parse(bak);save();repaintAll();});};setTimeout(()=>{if(b.isConnected&&parse().v==='review'&&b.textContent.startsWith('Click again'))renderReview();},5000);};}
+function repaintAll(){paintProgress();document.querySelectorAll('[data-card]').forEach(c=>paintCard(c.dataset.card));if(parse().v==='review')renderReview();if(cur)paintViewer();}
+function paintCard(id){const c=document.querySelector(`[data-card="${id}"] .rv`);if(!c)return;const r=R[id];c.className='rv '+(r?r.v:'');c.textContent=r&&r.v==='ok'?'✓ approved':r&&r.v==='chg'?'✎ change requested':'';}
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+let tt=0;function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${h(msg)}</span>${undo?'<button id="tu">Undo</button>':''}`;t.classList.add('show');if(undo)$('#tu').onclick=()=>{undo();t.classList.remove('show');};clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),undo?10000:3500);}
+/* ---------- lazy thumbnails and scaling ---------- */
+function mountThumbs(){const th=[...document.querySelectorAll('.thumb')];
+ rsz=new ResizeObserver(es=>es.forEach(e=>e.target.style.setProperty('--s',e.contentRect.width/1440)));
+ lazy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target,fr=t.querySelector('.fr');if(!fr.firstChild)fr.innerHTML=byId(t.dataset.id).html;lazy.unobserve(t);}}),{rootMargin:'600px'});
+ th.forEach(t=>{rsz.observe(t);lazy.observe(t);});}
+/* ---------- viewer dialog ---------- */
+function showViewer(){const ov=$('#ov');if(!ov.classList.contains('show')){lastFocus=document.activeElement;ov.hidden=false;ov.classList.add('show');document.body.classList.add('lock');$('#nav').inert=true;$('#wrapmain').inert=true;$('#adv').checked=P.adv;paintViewer();fit();$('#cx').focus();}else{paintViewer();fit();}}
+function paintViewer(){const s=cur,r=R[s.id]||{};const i=ctx.indexOf(s),f=fl(s.flow);
+ $('#frame').innerHTML=s.html;
+ const had=document.activeElement&&document.activeElement.id;
+ $('#ovh').innerHTML=`<span class="id">${s.id}</span><b id="ovt">${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="pos">${f.id} · ${f.name} — ${i+1} of ${ctx.length}${ctxState!=='all'?' ('+STATE_LABEL[ctxState]+' only)':''}</span><span style="flex:1"></span><button id="pv" ${i<=0?'disabled':''}>← Previous</button><button id="nx" ${i>=ctx.length-1?'disabled':''}>Next →</button><button class="g" id="ap" aria-pressed="${r.v==='ok'}">${r.v==='ok'?'✓ Approved (A to undo)':'✓ Approve (A)'}</button><button class="o" id="ch" aria-pressed="${r.v==='chg'}">${r.v==='chg'?'✎ Needs change (C to undo)':'✎ Needs change (C)'}</button><button id="un" ${r.v?'':'disabled'}>Undo verdict (U)</button><button class="x" id="cx">Close (Esc)</button><span class="nt">${s.note}</span>`;
+ if(document.activeElement!==$('#cmt'))$('#cmt').value=r.c||'';
+ $('#pv').onclick=()=>step(-1);$('#nx').onclick=()=>step(1);$('#ap').onclick=()=>verdict('ok');$('#ch').onclick=()=>verdict('chg',true);$('#un').onclick=()=>verdict(null);$('#cx').onclick=closeNav;
+ if(had&&document.activeElement===document.body&&$('#'+had)&&!$('#'+had).disabled)$('#'+had).focus();else if(document.activeElement===document.body)$('#cx').focus();}
+function step(d){flushNote();const i=ctx.indexOf(cur)+d;if(i<0||i>=ctx.length)return;history.replaceState(null,'',scrHash(ctx[i].id,ctxState));route();}
+function verdict(v,focusNote){const id=cur.id,r=R[id];
+ if(v===null||(r&&r.v===v)){if(r){if(r.c)R[id]={v:'',c:r.c};else delete R[id];}}
+ else R[id]={v,c:$('#cmt').value||(r&&r.c)||''};
+ save();paintCard(id);paintProgress();paintViewer();
+ if(v==='ok'&&R[id]&&R[id].v==='ok'&&P.adv&&ctx.indexOf(cur)<ctx.length-1)step(1);
+ else if(v==='chg'&&focusNote&&R[id]&&R[id].v==='chg')$('#cmt').focus();}
+let nt=0;
+$('#cmt').addEventListener('input',()=>{$('#sv').textContent='Saving…';clearTimeout(nt);nt=setTimeout(flushNote,400);});
+function flushNote(){clearTimeout(nt);if(!cur||!$('#ov').classList.contains('show'))return;const t=$('#cmt').value,r=R[cur.id];
+ if(r){if((r.c||'')!==t){r.c=t;save();$('#sv').textContent='Saved';}}
+ else if(t.trim()){R[cur.id]={v:'',c:t};save();$('#sv').textContent='Saved';}
+ else $('#sv').textContent='';}
+$('#adv').onchange=e=>{P.adv=e.target.checked;saveP();};
+function closeNav(){flushNote();const st=ctxState,f=cur.flow;if(pushed){pushed=false;history.back();}else location.hash=flowHash(f,st);}
+function closeViewer(){const ov=$('#ov');if(!ov.classList.contains('show'))return;ov.classList.remove('show');ov.hidden=true;document.body.classList.remove('lock');$('#nav').inert=false;$('#wrapmain').inert=false;cur=null;if(lastFocus&&lastFocus.isConnected)lastFocus.focus();}
+function fit(){const st=$('#stage');const w=st.clientWidth-36,hh=st.clientHeight-14;const s=Math.max(.1,Math.min(w/1440,hh/900));$('#frame').style.transform=`scale(${s})`;$('#wrap').style.width=1440*s+'px';$('#wrap').style.height=900*s+'px';}
+new ResizeObserver(()=>{if($('#ov').classList.contains('show'))fit();}).observe($('#stage'));
+document.addEventListener('click',e=>{if(e.target.closest('a.thumb')||e.target.closest('table.mx a'))pushed=true;});
+/* keyboard: ignore modifier keys and typing in fields */
+addEventListener('keydown',e=>{const ov=$('#ov');
+ if(ov.classList.contains('show')&&e.key==='Tab'){const f=[...ov.querySelectorAll('button:not([disabled]),textarea,input')];if(f.length){const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}return;}
+ if(document.body.classList.contains('navopen')&&e.key==='Escape'){navToggle(false);return;}
+ if(!ov.classList.contains('show')||e.ctrlKey||e.metaKey||e.altKey||e.defaultPrevented)return;
+ const t=e.target,typing=t&&(t.tagName==='TEXTAREA'||t.tagName==='INPUT'||t.tagName==='SELECT'||t.isContentEditable);
+ if(e.key==='Escape'){if(typing){t.blur();return;}closeNav();return;}
+ if(typing)return;
+ const k=e.key.toLowerCase();
+ if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1);
+ else if(k==='a')verdict('ok');else if(k==='c'){e.preventDefault();verdict('chg',true);}else if(k==='u')verdict(null);});
+/* nav drawer under 1024px */
+function navToggle(on){document.body.classList.toggle('navopen',on);$('#burger').setAttribute('aria-expanded',on);}
+$('#burger').onclick=()=>navToggle(!document.body.classList.contains('navopen'));$('#shade').onclick=()=>navToggle(false);
+$('#nav').addEventListener('click',e=>{if(e.target.closest('a'))navToggle(false);});
+/* ---------- internal pages ---------- */
+const GSTPAGE=()=>`<div class="vh"><div><h2>India GST rules used in the screens</h2><p>Summarised from tax guides found in research — not tax advice. A CA must confirm each rule, rate and date before go-live.</p></div></div>`+[
+['Return next month → credit note','A returned bill is never edited. The shop issues a credit note (Section 34 CGST) that references the original invoice. It is declared in the return of the month the credit note is issued, at the original bill’s tax rate. Example: Sept bill returned on 25 Oct → reduces October tax (filed in November).','Screens F2-2, F2-6, F12-2, F16-3'],
+['Retail reporting','Small retail (B2C) credit notes are netted in the rate-wise, state-wise summary of that month; large inter-state invoices above ₹2.5 lakh are reported separately. Verify current form table numbers. Confirm with CA.','F12-2, F31-3'],
+['Time limit','A credit note must be declared by 30 November after the financial year of the original sale (or annual return date if earlier). Afterwards only a commercial credit note is possible. Confirm with CA.','F2-2, F12-3'],
+['Tax invoice vs bill of supply','Regular dealers print a tax invoice with mandatory particulars (Rule 46). Composition dealers (up to ₹1.5 crore, 1%) print a bill of supply and cannot show GST separately or claim input credit. Confirm with CA.','F1-7, F13, F20'],
+['B2B invoice and IGST','A buyer with a GSTIN in the same state gets CGST + SGST; a buyer in another state gets IGST of the same rate. Place-of-supply rules for delivery: Confirm with CA.','F20-2, F20-4'],
 ['Rates','From 22 Sep 2025 sources report slabs of 5% and 18% (plus 40% for sin/luxury), loose staples nil, some packaged milk/paneer nil, carry bags 18%. Sample rates in the screens must be checked item-by-item in the notification.','F1-2, F13-2'],
-['Write-offs','Input credit on goods lost, stolen, destroyed or written off may need reversal (Section 17(5)(h)). Wastage entries flag “ask CA”.','F9, F5-5, F6'],
-['MRP and scales','Packaged goods cannot be sold above MRP; weighing scales must be verified and stamped (interval varies by state).','F1-2, F10-3'],
-['E-invoice','Applies from ₹5 crore turnover for B2B/exports; counter bills are not e-invoiced. Supplier IRN is stored on purchase invoices.','F5-6']].map(([t,b,w])=>`<div class="doc"><h3>${t}</h3><p>${b}</p><p><b>Where:</b> ${w}</p></div>`).join('');}
-else if(view==='research'){m.innerHTML=`<div class="vh"><div><h2>Research sources</h2><p>No single open-source project covers weighing, expiry, purchase orders, GST and wastage together. Workflows were taken from several; nothing was copied. Verify repos and licences before reuse.</p></div></div><div class="doc"><h3>Open source on GitHub</h3><ul><li><b>BeratARPA/BarcodePOS</b> — barcode, weighing scale and printer integration in a counter app.</li><li><b>Posnic/POS</b> — offline-first POS (Electron, AGPL).</li><li><b>ismail2021mohamed-cmd/supermarket-management-system</b> — roles, suppliers, expiry and low-stock alerts, profit dashboard.</li><li><b>Aasthayuli/Grocery_Inventory_Management</b> — barcode generation, expiry tracking, suppliers.</li><li><b>odoo/odoo, frappe/erpnext (+POSNext), Blair2004/NexoPOS, opensourcepos</b> — purchasing and receiving, cashier shifts, POS profiles, stock adjustments, roles.</li></ul></div><div class="doc"><h3>Vendor and guide material (marketing, unverified)</h3><ul><li>Price-embedded EAN-13 scale labels, PLU codes, tare.</li><li>Expiry-first (FEFO) stock, near-expiry markdown, blind counts and reason codes for shrink.</li><li>PO approvals by value, flagging price mismatch and over-receipt.</li></ul></div><div class="doc"><h3>UI patterns</h3><ul><li>Shopify Polaris and Emarsys data grids: checkbox column, hover actions, filters, bulk bar.</li></ul></div>`;}
-m.querySelectorAll('.thumb').forEach(t=>t.onclick=()=>open(t.dataset.id));}
-/* viewer */
-function fit(){const s=Math.min((innerWidth-60)/1440,(innerHeight-250)/900);$('#frame').style.transform=`scale(${s})`;$('#wrap').style.width=1440*s+'px';$('#wrap').style.height=900*s+'px';}
-function open(id){cur=SCREENS.findIndex(s=>s.id===id);show();$('#ov').classList.add('show');}
-function show(){const s=SCREENS[cur];const r=R[s.id]||{};$('#frame').innerHTML=s.html;fit();
-$('#ovh').innerHTML=`<span class="id">${s.id}</span><b>${s.title}</b><span class="st ${s.state}">${STATE_LABEL[s.state]}</span><span class="nt">${s.note}</span><button class="g" id="ap">✓ Approve</button><button class="o" id="ch">✎ Needs change</button><button class="x" id="cx">Close</button>`;
-$('#cmt').value=r.c||'';$('#cm').classList.toggle('show',r.v==='chg');
-$('#ap').onclick=()=>mark('ok');$('#ch').onclick=()=>{R[s.id]={v:'chg',c:$('#cmt').value};save();$('#cm').classList.add('show');$('#cmt').focus();render2()};$('#cx').onclick=close;}
-function mark(v){const s=SCREENS[cur];R[s.id]={v,c:(R[s.id]&&R[s.id].c)||''};save();$('#cm').classList.toggle('show',v==='chg');render2();}
-function render2(){nav();if(view!=='review'){const keep=scrollY;render();scrollTo(0,keep);}}
-function close(){$('#ov').classList.remove('show');}
-$('#cms').onclick=()=>{const s=SCREENS[cur];R[s.id]={v:'chg',c:$('#cmt').value};save();render2();};
-$('#pv').onclick=()=>{cur=(cur-1+SCREENS.length)%SCREENS.length;show();};$('#nx').onclick=()=>{cur=(cur+1)%SCREENS.length;show();};
-addEventListener('resize',()=>{if($('#ov').classList.contains('show'))fit();});
-addEventListener('keydown',e=>{if(!$('#ov').classList.contains('show'))return;if(document.activeElement===$('#cmt')){if(e.key==='Escape')document.activeElement.blur();return;}if(e.key==='Escape')close();if(e.key==='ArrowRight')$('#nx').click();if(e.key==='ArrowLeft')$('#pv').click();if(e.key==='a'||e.key==='A')mark('ok');if(e.key==='c'||e.key==='C'){mark('chg');$('#cmt').focus();e.preventDefault();}});
-render();
+['Write-offs','Input credit on goods lost, stolen, destroyed or written off may need reversal (Section 17(5)(h)). Wastage entries flag “ask CA”.','F22, F5-5, F6'],
+['Loyalty points and transfers','Points used like a payment, and stock transfers between your own stores, have a GST treatment that depends on facts. Both are flagged “Confirm with CA”.','F18-2, F26-2'],
+['MRP and scales','Packaged goods cannot be sold above MRP; weighing scales must be verified and stamped (interval varies by state).','F1-2, F10-3, F27-4'],
+['E-invoice','Applies from ₹5 crore turnover for B2B/exports; counter bills are not e-invoiced. Supplier IRN is stored on purchase invoices.','F5-6']].map(([t,b,w])=>`<div class="doc"><h3>${t}</h3><p>${b}</p><p><b>Where:</b> ${w}</p></div>`).join('');
+const RESEARCH=()=>`<div class="vh"><div><h2>Research sources</h2><p>No single open-source project covers weighing, expiry, purchase orders, GST and wastage together. Workflows were taken from several; nothing was copied. Verify repos and licences before reuse.</p></div></div><div class="doc"><h3>Open source on GitHub</h3><ul><li><b>BeratARPA/BarcodePOS</b> — barcode, weighing scale and printer integration in a counter app.</li><li><b>Posnic/POS</b> — offline-first POS (Electron, AGPL).</li><li><b>ismail2021mohamed-cmd/supermarket-management-system</b> — roles, suppliers, expiry and low-stock alerts, profit dashboard.</li><li><b>Aasthayuli/Grocery_Inventory_Management</b> — barcode generation, expiry tracking, suppliers.</li><li><b>odoo/odoo, frappe/erpnext (+POSNext), Blair2004/NexoPOS, opensourcepos</b> — purchasing and receiving, cashier shifts, POS profiles, stock adjustments, roles.</li></ul></div><div class="doc"><h3>Vendor and guide material (marketing, unverified)</h3><ul><li>Price-embedded EAN-13 scale labels, PLU codes, tare.</li><li>Expiry-first (FEFO) stock, near-expiry markdown, blind counts and reason codes for shrink.</li><li>PO approvals by value, flagging price mismatch and over-receipt.</li></ul></div><div class="doc"><h3>UI patterns</h3><ul><li>Shopify Polaris and Emarsys data grids: checkbox column, hover actions, filters, bulk bar.</li></ul></div>`;
+route();
 </script></body></html>

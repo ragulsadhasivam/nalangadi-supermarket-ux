@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nalangadi screen stage</title>
+<link rel="stylesheet" href="styles.css">
+<style>body{background:#fff;margin:0}section{width:1440px;height:900px;margin:0 0 20px;position:relative}</style></head><body>
+<main id="st"></main>
+<script src="lib.js"></script><script src="screens-pos.js"></script><script src="screens-purchase.js"></script><script src="screens-stock.js"></script><script src="screens-scan.js"></script><script src="screens-reports.js"></script><script src="screens-counter-extra.js"></script><script src="screens-backoffice-extra.js"></script>
+<script>
+/* Test stage for the quality gate: every screen at its real size, one after the other. ?flow=F1 limits it to one flow. */
+const q=new URLSearchParams(location.search).get('flow');
+document.getElementById('st').innerHTML=SCREENS.filter(s=>!q||s.flow===q).map(s=>`<section data-id="${s.id}" data-flow="${s.flow}">${s.html}</section>`).join('');
+</script></body></html>
